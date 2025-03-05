@@ -1,0 +1,163 @@
+{
+  "1739796304365_A8_011_EnergyofThing_102322": {
+    "id": "1739796304365_A8_011_EnergyofThing_102322",
+    "filePath": "uploads\\1739796304365_A8_011_EnergyofThing_102322.pdf",
+    "status": "Evaluated",
+    "createdAt": "2025-02-17T12:45:04.383Z",
+    "result": {
+      "Market": 1.7,
+      "Solution": 3.6,
+      "Idea_Novelty": 4.4,
+      "Market_Attractiveness": 3.2,
+      "Market_Size": 1.9,
+      "Market_Growth": 0.5,
+      "Market_Competition": 0.1,
+      "User_Pain_Level": 0.4,
+      "Solution_Inventiveness": 0.3,
+      "Launch_Readiness": 4.7,
+      "Team_Potential": 4.4,
+      "Overall_Feeling": 3.4,
+      "Total_Score": "28.6",
+      "Standardized_Score": "2.38"
+    },
+    "updatedAt": "2025-02-17T12:45:04.383Z"
+  },
+  "1739796340056_A8_011_EnergyofThing_102322": {
+    "id": "1739796340056_A8_011_EnergyofThing_102322",
+    "filePath": "uploads\\1739796340056_A8_011_EnergyofThing_102322.pdf",
+    "status": "Evaluated",
+    "createdAt": "2025-02-17T12:45:40.071Z",
+    "result": {
+      "Market": 3.8,
+      "Solution": 1.6,
+      "Idea_Novelty": 1.6,
+      "Market_Attractiveness": 0,
+      "Market_Size": 3.9,
+      "Market_Growth": 2.4,
+      "Market_Competition": 2.8,
+      "User_Pain_Level": 2.1,
+      "Solution_Inventiveness": 3.1,
+      "Launch_Readiness": 4.5,
+      "Team_Potential": 3.4,
+      "Overall_Feeling": 3.3,
+      "Total_Score": "32.5",
+      "Standardized_Score": "2.71"
+    },
+    "updatedAt": "2025-02-17T12:45:40.071Z"
+  },
+  "1739862478628_A8_008_Digix_231022": {
+    "id": "1739862478628_A8_008_Digix_231022",
+    "filePath": "uploads\\1739862478628_A8_008_Digix_231022.pdf",
+    "status": "Evaluated",
+    "createdAt": "2025-02-18T07:07:58.694Z",
+    "result": {
+      "Market": 1,
+      "Solution": 2,
+      "Idea_Novelty": 2,
+      "Market_Attractiveness": 1.1,
+      "Market_Size": 4.6,
+      "Market_Growth": 4.8,
+      "Market_Competition": 0.6,
+      "User_Pain_Level": 1.6,
+      "Solution_Inventiveness": 1.3,
+      "Launch_Readiness": 0.1,
+      "Team_Potential": 1.6,
+      "Overall_Feeling": 1.9,
+      "Total_Score": "22.6",
+      "Standardized_Score": "1.88"
+    },
+    "updatedAt": "2025-02-18T07:07:58.696Z"
+  },
+  "1740134212273_Kaspy Business Plan Full Pitchdeck (ENGLISH)": {
+    "id": "1740134212273_Kaspy Business Plan Full Pitchdeck (ENGLISH)",
+    "filePath": "uploads\\1740134212273_Kaspy Business Plan Full Pitchdeck (ENGLISH).pdf",
+    "status": "Evaluated",
+    "createdAt": "2025-02-21T10:36:52.339Z",
+    "result": {
+      "Market": 2.9,
+      "Solution": 3.9,
+      "Idea_Novelty": 2,
+      "Market_Attractiveness": 2.9,
+      "Market_Size": 1.6,
+      "Market_Growth": 0.6,
+      "Market_Competition": 1,
+      "User_Pain_Level": 3.7,
+      "Solution_Inventiveness": 2.6,
+      "Launch_Readiness": 0.3,
+      "Team_Potential": 3.8,
+      "Overall_Feeling": 0.9,
+      "Total_Score": "26.2",
+      "Standardized_Score": "2.18"
+    },
+    "updatedAt": "2025-02-21T10:36:52.339Z"
+  },
+  "1741005304486_[x] - peth532545 - A8_005_DeepInvest_09052021": {
+    "id": "1741005304486_[x] - peth532545 - A8_005_DeepInvest_09052021",
+    "filePath": "uploads\\1741005304486_[x] - peth532545 - A8_005_DeepInvest_09052021.pdf",
+    "status": "Evaluated",
+    "createdAt": "2025-03-03T12:35:04.514Z",
+    "result": {
+      "Market": 4.8,
+      "Solution": 2.2,
+      "Idea_Novelty": 1.8,
+      "Market_Attractiveness": 2.5,
+      "Market_Size": 4,
+      "Market_Growth": 2.1,
+      "Market_Competition": 0.3,
+      "User_Pain_Level": 0.5,
+      "Solution_Inventiveness": 4.9,
+      "Launch_Readiness": 4.7,
+      "Team_Potential": 0.2,
+      "Overall_Feeling": 3.9,
+      "Total_Score": "31.9",
+      "Standardized_Score": "2.66"
+    },
+    "updatedAt": "2025-03-03T12:35:04.515Z"
+  },
+  "1741163245590_3rd PRIMO": {
+    "id": "1741163245590_3rd PRIMO",
+    "filePath": "uploads\\1741163245590_3rd PRIMO.pdf",
+    "status": "Evaluated",
+    "createdAt": "2025-03-05T08:27:25.617Z",
+    "result": {
+      "Market": 2.1,
+      "Solution": 4,
+      "Idea_Novelty": 2.6,
+      "Market_Attractiveness": 4.3,
+      "Market_Size": 2.4,
+      "Market_Growth": 2.9,
+      "Market_Competition": 4.4,
+      "User_Pain_Level": 4.2,
+      "Solution_Inventiveness": 0.8,
+      "Launch_Readiness": 2.9,
+      "Team_Potential": 1.9,
+      "Overall_Feeling": 3.1,
+      "Total_Score": "35.6",
+      "Standardized_Score": "2.97"
+    },
+    "updatedAt": "2025-03-05T08:27:25.618Z"
+  },
+  "1741163247917_3rd PRIMO": {
+    "id": "1741163247917_3rd PRIMO",
+    "filePath": "uploads\\1741163247917_3rd PRIMO.pdf",
+    "status": "Evaluated",
+    "createdAt": "2025-03-05T08:27:27.940Z",
+    "result": {
+      "Market": 4.6,
+      "Solution": 2.7,
+      "Idea_Novelty": 2.1,
+      "Market_Attractiveness": 3.1,
+      "Market_Size": 1.1,
+      "Market_Growth": 0.7,
+      "Market_Competition": 0.7,
+      "User_Pain_Level": 4.4,
+      "Solution_Inventiveness": 4,
+      "Launch_Readiness": 3.3,
+      "Team_Potential": 0.5,
+      "Overall_Feeling": 2.8,
+      "Total_Score": "30.0",
+      "Standardized_Score": "2.50"
+    },
+    "updatedAt": "2025-03-05T08:27:27.940Z"
+  }
+}

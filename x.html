@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Evaluation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">  <!-- External CSS file -->
+</head>
+<body>
+
+    <h2>Upload or Select a PDF for Evaluation</h2>
+
+    <!-- File Upload Form -->
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" id="pdfFile" name="pdf" accept="application/pdf">
+        <button type="submit">Upload</button>
+    </form>
+
+    <!-- Dropdown for selecting from uploaded files -->
+    <h3>Select an Uploaded File</h3>
+    <select id="uploadedFiles">
+        <option value="">-- Select a file --</option>
+    </select>
+    <button id="fetchEvaluation">Get Evaluation</button>
+
+    <div id="evaluationResults"></div>
+
+    <script>
+        // Fetch list of uploaded files from backend
+        async function fetchUploadedFiles() {
+            console.log("Fetching from:", "http://localhost:5000/list-uploads"); // Debug line
+
+            const response = await fetch("http://localhost:5000/list-uploads");
+            const files = await response.json();
+            const dropdown = document.getElementById("uploadedFiles");
+            dropdown.innerHTML = '<option value="">-- Select a file --</option>';
+            files.forEach(file => {
+                const option = document.createElement("option");
+                option.value = file;
+                option.textContent = file;
+                dropdown.appendChild(option);
+            });
+        }
+
+        document.getElementById("uploadForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData();
+            formData.append('pdf', document.getElementById('pdfFile').files[0]);
+
+            const response = await fetch("http://localhost:5000/upload-pdf", {
+                method: "POST",
+                body: formData,
+            });
+
+            const result = await response.json();
+            if (result.evaluationId) {
+                checkEvaluationStatus(result.evaluationId);
+                fetchUploadedFiles(); // Refresh uploaded files list
+            } else {
+                alert("Upload failed");
+            }
+        });
+
+        document.getElementById("fetchEvaluation").addEventListener("click", () => {
+            const selectedFile = document.getElementById("uploadedFiles").value;
+            if (selectedFile) {
+                checkEvaluationStatus(selectedFile.split('.')[0]); // Extracting evaluation ID
+            } else {
+                alert("Please select a file");
+            }
+        });
+
+        async function checkEvaluationStatus(evaluationId) {
+            try {
+                const response = await fetch(`http://localhost:5000/get-evaluation/${evaluationId}`);
+                if (!response.ok) throw new Error("Failed to fetch evaluation status");
+
+                const result = await response.json();
+
+                if (result.status === "Evaluated" && result.result) {
+                    displayEvaluationResults(result.result);
+                } else {
+                    setTimeout(() => checkEvaluationStatus(evaluationId), 5000); // Recheck every 5 sec
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        function displayEvaluationResults(result) {
+            let tableHTML = `<table><tr><th>Metric</th><th>Score</th></tr>`;
+            for (const [key, value] of Object.entries(result)) {
+                tableHTML += `<tr><td>${key}</td><td>${value}</td></tr>`;
+            }
+            tableHTML += `</table>`;
+            document.getElementById("evaluationResults").innerHTML = tableHTML;
+        }
+
+        // Load available files on page load
+        fetchUploadedFiles();
+    </script>
+
+</body>
+</html>

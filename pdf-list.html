@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uploaded PDFs</title>
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"> -->
+    <link rel="stylesheet" href="pixel.css">
+</head>
+<body>
+
+    <h2>Uploaded PDFs</h2>
+    
+    <!-- <h3>Select an Unevaluated File</h3>
+    <select id="unevaluatedFiles">
+        <option value="">-- Select a file --</option>
+    </select> -->
+    <div id="pdfContainer"></div>
+
+    <!-- Modal for displaying evaluation results -->
+    <div id="evaluationModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="document.getElementById('evaluationModal').style.display='none'">&times;</span>
+            <h3>Evaluation Results</h3>
+            <div id="evaluationResults"></div>
+        </div>
+    </div>
+    <button id="homeBtn"onclick="window.location.href='index.html'">Back to Home</button>
+
+    <script>
+        // document.addEventListener("DOMContentLoaded", function () {
+        //     fetchUploadedFiles();
+        // });
+        async function fetchUploadedFiles() {
+            const response = await fetch("http://localhost:5000/list-uploads");
+            const files = await response.json();
+            const pdfContainer = document.getElementById("pdfContainer");
+            pdfContainer.innerHTML = "";
+
+            files.forEach(file => {
+                const button = document.createElement("button");
+                button.classList.add("pdf-button");
+                button.innerHTML = `
+                    <img src="design/photo-book.png" class="pdf-icon" alt="PDF Icon">
+                    <a>${file}</a>
+                `;
+                button.onclick = () => showEvaluation(file);
+                pdfContainer.appendChild(button);
+            });
+        }
+
+        async function showEvaluation(file) {
+            const response = await fetch(`http://localhost:5000/get-evaluation/${file.split('.')[0]}`);
+            const result = await response.json();
+
+            let tableHTML = `<table><tr><th>Metric</th><th>Score</th></tr>`;
+            for (const [key, value] of Object.entries(result.result || {})) {
+                tableHTML += `<tr><td>${key}</td><td>${value}</td></tr>`;
+            }
+            tableHTML += `</table>`;
+
+            document.getElementById("evaluationResults").innerHTML = tableHTML;
+            document.getElementById("evaluationModal").style.display = "block";
+        }
+
+        fetchUploadedFiles();
+    </script>
+
+    <style>
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background-color: #5D4037; /* Brown background */
+            color: white;
+            text-align: center;
+        }
+
+        h2 {
+            margin-top: 35px;
+        }
+
+        #pdfContainer {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            padding: 1px;
+            justify-items: center;
+            margin: 50px;
+        }
+
+        .pdf-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* background: rgba(255, 255, 255, 0.1); */
+            padding: 1px;
+            border-radius: 8px;
+            width: 10px;
+            text-align: center;
+        }
+        .pdf-icon {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 5px;
+        }
+        a {
+            color: #FFD700;
+            text-decoration: none;
+            font-size: 8px;
+            word-wrap: break-word;
+            text-shadow: 2px 2px 4px rgba(0, 0.7, 0, 0.7);
+        }
+
+        a:hover {
+            color:black
+        }
+        .modal { display: block; position: relative; z-index: 1; left: 0; top: 0; width: 100%; height: 100%;  }
+        .modal-content { background-color: rgb(255, 205, 118); font-size: 10px; margin: 1% auto; padding: 20px; border: 1px solid #888; width: 50%; }
+        .close { color: red; float: right; font-size: 28px; cursor: pointer; }
+        #homeBtn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background: url('design/letter.png') no-repeat center;
+            background-size: contain;
+            width: 150px;
+            height: 50px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+
+</body>
+
+</html>

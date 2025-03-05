@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Evaluation</title>
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"> -->
+    <link rel="stylesheet" href="pixel.css">
+</head>
+<body>
+
+    <h2>PDF Evaluation System</h2>
+
+    <!-- Buttons for navigation -->
+    <!-- <button id= "uploadBtn" onclick="document.getElementById('uploadSection').style.display='block'">Upload PDF</button> -->
+    <!-- Upload Section -->
+    <div id="uploadSection">
+        <!-- <h3>Upload a PDF</h3> -->
+        <form id="uploadForm" enctype="multipart/form-data">
+            <input type="file" id="pdfFile" name="pdf" accept="application/pdf">
+            <button id="uploadBtn" type="submit">Upload&Evaluate</button>
+        </form>
+    </div>
+    <!-- <button id="evaluateBtn">Evaluate</button> -->
+    <button id="pdfListBtn" onclick="window.location.href='pdf-list.html'">View Uploaded PDFs</button>
+
+    
+
+
+    <script>
+        async function fetchEvaluatedFiles() {
+            const response = await fetch("http://localhost:5000/list-unevaluated");
+            const files = await response.json();
+            const dropdown = document.getElementById("unevaluatedFiles");
+            dropdown.innerHTML = '<option value="">-- Select a file --</option>';
+            files.forEach(file => {
+                const option = document.createElement("option");
+                option.value = file;
+                option.textContent = file;
+                dropdown.appendChild(option);
+            });
+        }
+
+        document.getElementById("uploadForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const formData = new FormData();
+            formData.append('pdf', document.getElementById('pdfFile').files[0]);
+            await fetch("http://localhost:5000/upload-pdf", { method: "POST", body: formData });
+            fetchUploadedFiles(); // Refresh list after upload
+        });
+
+        // document.getElementById("evaluateBtn").addEventListener("click", () => {
+        //     const selectedFile = document.getElementById("uploadedFiles").value;
+        //     if (selectedFile) {
+        //         window.location.href = `pdf-list.html?file=${encodeURIComponent(selectedFile)}`;
+        //     } else {
+        //         alert("Please select a file to evaluate.");
+        //     }
+        // });
+        fetchEvaluatedFiles();
+        // fetchUploadedFiles();
+    </script>
+
+</body>
+</html>

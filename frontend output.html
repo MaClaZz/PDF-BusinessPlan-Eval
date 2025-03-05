@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Evaluation</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        
+        .file-section {
+            margin-bottom: 20px;
+        }
+
+        .file-upload, .file-select {
+            display: flex;
+            flex-direction: column;
+            margin-top: 10px;
+        }
+
+        .file-upload input, .file-select select {
+            margin-bottom: 10px;
+        }
+
+        .file-upload button, .file-select button {
+            margin-top: 10px;
+        }
+
+        .disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        #evaluationStatus {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Upload or Select a PDF for Evaluation</h2>
+
+    <!-- File Upload Form -->
+    <div class="file-section">
+        <div class="file-upload" id="uploadSection">
+            <input type="file" id="pdfFile" name="pdf" accept="application/pdf">
+            <button type="submit" id="uploadButton">Upload PDF</button>
+        </div>
+
+        <!-- Dropdown for selecting from uploaded files -->
+        <div class="file-select" id="selectSection">
+            <h3>Select an Uploaded File</h3>
+            <select id="uploadedFiles">
+                <option value="">-- Select a file --</option>
+            </select>
+            <button id="fetchEvaluation">Get Evaluation</button>
+        </div>
+    </div>
+
+    <h3>Evaluation Status: <span id="evaluationStatus">Not started</span></h3>
+    <div id="evaluationResults"></div>
+
+    <script>
+        let isEvaluated = false;  // Track evaluation status
+
+        // Fetch list of uploaded files from backend
+        async function fetchUploadedFiles() {
+            const response = await fetch("http://localhost:5000/list-uploads");
+            const files = await response.json();
+            const dropdown = document.getElementById("uploadedFiles");
+            dropdown.innerHTML = '<option value="">-- Select a file --</option>';
+            files.forEach(file => {
+                const option = document.createElement("option");
+                option.value = file;
+                option.textContent = file;
+                dropdown.appendChild(option);
+            });
+        }
+
+        document.getElementById("uploadForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData();
+            formData.append('pdf', document.getElementById('pdfFile').files[0]);
+
+            const response = await fetch("http://localhost:5000/upload-pdf", {
+                method: "POST",
+                body: formData,
+            });
+
+            const result = await response.json();
+            if (result.evaluationId) {
+                document.getElementById('evaluationStatus').textContent = "Processing...";
+                checkEvaluationStatus(result.evaluationId);
+                fetchUploadedFiles(); // Refresh uploaded files list
+                disableFileUpload(true); // Disable file upload when selection is active
+            } else {
+                alert("Upload failed");
+            }
+        });
+
+        // Handle selection of file for evaluation
+        document.getElementById("fetchEvaluation").addEventListener("click", () => {
+            const selectedFile = document.getElementById("uploadedFiles").value;
+            if (selectedFile) {
+                checkEvaluationStatus(selectedFile.split('.')[0]); // Extract evaluation ID
+            } else {
+                alert("Please select a file");
+            }
+        });
+
+        async function checkEvaluationStatus(evaluationId) {
+            try {
+                const response = await fetch(`http://localhost:5000/get-evaluation/${evaluationId}`);
+                if (!response.ok) throw new Error("Failed to fetch evaluation status");
+
+                const result = await response.json();
+                document.getElementById('evaluationStatus').textContent = result.status;
+
+                if (result.status === "Evaluated" && result.result) {
+                    displayEvaluationResults(result.result);
+                } else {
+                    setTimeout(() => checkEvaluationStatus(evaluationId), 5000); // Recheck every 5 sec
+                }
+            } catch (error) {
+                document.getElementById('evaluationStatus').textContent = "Error retrieving status";
+                console.error(error);
+            }
+        }
+
+        function displayEvaluationResults(result) {
+            let tableHTML = `<table><tr><th>Metric</th><th>Score</th></tr>`;
+            for (const [key, value] of Object.entries(result)) {
+                tableHTML += `<tr><td>${key}</td><td>${value}</td></tr>`;
+            }
+            tableHTML += `</table>`;
+            document.getElementById("evaluationResults").innerHTML = tableHTML;
+        }
+
+        function disableFileUpload(isUploadDisabled) {
+            const uploadSection = document.getElementById("uploadSection");
+            const selectSection = document.getElementById("selectSection");
+
+            if (isUploadDisabled) {
+                uploadSection.classList.add("disabled");
+                selectSection.classList.remove("disabled");
+            } else {
+                uploadSection.classList.remove("disabled");
+                selectSection.classList.add("disabled");
+            }
+        }
+
+        // Load available files on page load
+        fetchUploadedFiles();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,120 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #141e30, #243b55);
+    color: #fff;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Headers */
+h2, h3 {
+    text-align: center;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Form Styling */
+form {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+input[type="file"] {
+    border: none;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+}
+
+button {
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #a777e3, #6e8efb);
+    transform: translateY(-2px);
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Dropdown */
+select {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    color: rgb(178, 166, 195);
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+select:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Evaluation Table */
+table {
+    width: 80%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.3);
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    backdrop-filter: blur(20px);
+}
+
+th {
+    background: rgba(255, 255, 255, 0.2);
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+td {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+tr:nth-child(even) td {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* Hover Effect */
+tr:hover td {
+    background: rgba(255, 255, 255, 0.25);
+    transition: 0.3s;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    table {
+        width: 100%;
+    }
+
+    form {
+        width: 90%;
+    }
+}
